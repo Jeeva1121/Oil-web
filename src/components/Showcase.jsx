@@ -72,7 +72,7 @@ export const Showcase = ({ onAddToCart }) => {
       });
 
       // Slide 1 zoom & price roll
-      tl.fromTo(img1Ref.current, { scale: 1.03 }, { scale: 1, ease: 'none' }, 0);
+      tl.fromTo(img1Ref.current, { scale: 1.08 }, { scale: 1, ease: 'none' }, 0);
 
       const priceObj1 = { val: 0 };
       gsap.to(priceObj1, {
@@ -110,7 +110,7 @@ export const Showcase = ({ onAddToCart }) => {
         },
         0.5
       );
-      tl.fromTo(img2Ref.current, { scale: 1.03 }, { scale: 1, ease: 'none' }, 0.5);
+      tl.fromTo(img2Ref.current, { scale: 1.15 }, { scale: 1, ease: 'none' }, 0.5);
       tl.fromTo(content2Ref.current, { y: 40, opacity: 0 }, { y: 0, opacity: 1, ease: 'power2.out' }, 0.6);
 
       // Slide 3 full-screen curtain reveal over Slide 2
@@ -134,7 +134,7 @@ export const Showcase = ({ onAddToCart }) => {
         },
         1.2
       );
-      tl.fromTo(img3Ref.current, { scale: 1.03 }, { scale: 1, ease: 'none' }, 1.2);
+      tl.fromTo(img3Ref.current, { scale: 1.15 }, { scale: 1, ease: 'none' }, 1.2);
       tl.fromTo(content3Ref.current, { y: 40, opacity: 0 }, { y: 0, opacity: 1, ease: 'power2.out' }, 1.3);
     },
     { scope: containerRef }
@@ -147,30 +147,19 @@ export const Showcase = ({ onAddToCart }) => {
       className="relative w-full h-screen overflow-hidden bg-stone-950 text-white select-none"
       aria-label="Single-Origin Batches Showcase"
     >
-      {/* SLIDE 1: Sun-Dried Guntur Chillies */}
+      {/* SLIDE 1: Sunflower Oil (Full Cover Background) */}
       <div
         ref={slide1Ref}
         className="absolute inset-0 w-full h-full overflow-hidden z-10"
       >
-        {/* Ambient Blurred Background to Fill the Screen Atmosphere */}
         <img
+          ref={img1Ref}
           src={SHOWCASE_SLIDES[0].image}
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover filter blur-3xl opacity-35 scale-110 pointer-events-none"
+          alt={SHOWCASE_SLIDES[0].title}
+          className="w-full h-full object-cover object-center filter brightness-[1.02] contrast-[1.02]"
         />
-
-        {/* Crisp Featured Packaging Scene (Uncropped on Mobile & Desktop) */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <img
-            ref={img1Ref}
-            src={SHOWCASE_SLIDES[0].image}
-            alt={SHOWCASE_SLIDES[0].title}
-            className="w-full h-full object-contain md:object-cover object-center filter brightness-[1.02] contrast-[1.02]"
-          />
-        </div>
-        {/* Soft, Transparent Ambient Lighting */}
-        <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
+        {/* Soft, Transparent Ambient Lighting (No Heavy Black Shade) */}
+        <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-black/25 pointer-events-none" />
 
         {/* Floating Content Over Background */}
         <div
@@ -222,30 +211,19 @@ export const Showcase = ({ onAddToCart }) => {
         </div>
       </div>
 
-      {/* SLIDE 2: Authentic Ceylon Cinnamon */}
+      {/* SLIDE 2: Sesame Oil (Full Cover Background) */}
       <div
         ref={slide2Ref}
         className="absolute inset-0 w-full h-full overflow-hidden z-20"
         style={{ clipPath: 'inset(100% 0% 0% 0%)' }}
       >
-        {/* Ambient Blurred Background to Fill the Screen Atmosphere */}
         <img
+          ref={img2Ref}
           src={SHOWCASE_SLIDES[1].image}
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover filter blur-3xl opacity-35 scale-110 pointer-events-none"
+          alt={SHOWCASE_SLIDES[1].title}
+          className="w-full h-full object-cover object-center filter brightness-[1.02] contrast-[1.02]"
         />
-
-        {/* Crisp Featured Packaging Scene (Uncropped on Mobile & Desktop) */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <img
-            ref={img2Ref}
-            src={SHOWCASE_SLIDES[1].image}
-            alt={SHOWCASE_SLIDES[1].title}
-            className="w-full h-full object-contain md:object-cover object-center filter brightness-[1.02] contrast-[1.02]"
-          />
-        </div>
-        <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-black/25 pointer-events-none" />
 
         <div
           ref={content2Ref}
@@ -294,30 +272,19 @@ export const Showcase = ({ onAddToCart }) => {
         </div>
       </div>
 
-      {/* SLIDE 3: Golden Long Raisins */}
+      {/* SLIDE 3: Desi Buffalo Ghee (Full Cover Background) */}
       <div
         ref={slide3Ref}
         className="absolute inset-0 w-full h-full overflow-hidden z-30"
         style={{ clipPath: 'inset(100% 0% 0% 0%)' }}
       >
-        {/* Ambient Blurred Background to Fill the Screen Atmosphere */}
         <img
+          ref={img3Ref}
           src={SHOWCASE_SLIDES[2].image}
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover filter blur-3xl opacity-35 scale-110 pointer-events-none"
+          alt={SHOWCASE_SLIDES[2].title}
+          className="w-full h-full object-cover object-center filter brightness-[1.02] contrast-[1.02]"
         />
-
-        {/* Crisp Featured Packaging Scene (Uncropped on Mobile & Desktop) */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <img
-            ref={img3Ref}
-            src={SHOWCASE_SLIDES[2].image}
-            alt={SHOWCASE_SLIDES[2].title}
-            className="w-full h-full object-contain md:object-cover object-center filter brightness-[1.02] contrast-[1.02]"
-          />
-        </div>
-        <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-black/25 pointer-events-none" />
 
         <div
           ref={content3Ref}
