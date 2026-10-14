@@ -375,39 +375,19 @@ export const Navbar = ({
             </button>
           </div>
 
-          {/* Mobile Search Bar inside menu */}
-          <div className="w-full flex items-center px-3 py-2 rounded-none bg-stone-900 border border-white/20 text-xs">
-            <Search className="w-4 h-4 text-stone-400 mr-2 flex-none" />
-            <input
-              type="text"
-              placeholder="Search all pure cold-pressed oils..."
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                onOpenSearch();
-              }}
-              readOnly
-              className="w-full bg-transparent text-white placeholder-stone-400 text-xs cursor-pointer focus:outline-none"
-            />
-          </div>
-
-          <nav className="flex flex-col space-y-3 pt-2">
+          <nav className="flex flex-col space-y-3 pt-1">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleNavigate(e, link.href)}
-                className="text-sm font-medium tracking-widest uppercase text-white/90 hover:text-amber-400 py-1.5 border-b border-white/10 transition-colors flex items-center justify-between cursor-pointer"
+                className="text-sm font-medium tracking-widest uppercase text-white/90 hover:text-amber-400 py-2 border-b border-white/10 transition-colors flex items-center justify-between cursor-pointer"
               >
                 <span>{link.name}</span>
                 <ArrowRight className="w-3.5 h-3.5 text-stone-500" />
               </a>
             ))}
           </nav>
-
-          <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-stone-400">
-            <span>Direct from Organic Farms</span>
-            <span className="text-amber-400 font-semibold">100% Raw & Unrefined</span>
-          </div>
         </div>
       )}
     </header>
