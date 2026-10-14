@@ -1,0 +1,233 @@
+@import "tailwindcss";
+
+:root {
+  /* 8px Spacing Grid System */
+  --space-1: 0.5rem;   /* 8px */
+  --space-2: 1rem;     /* 16px */
+  --space-3: 1.5rem;   /* 24px */
+  --space-4: 2rem;     /* 32px */
+  --space-5: 2.5rem;   /* 40px */
+  --space-6: 3rem;     /* 48px */
+  --space-8: 4rem;     /* 64px */
+
+  /* Palette - Light Theme */
+  --bg-canvas: #fbfbfa;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #ffffff;
+  --bg-subtle: #f4f3ef;
+  --bg-overlay: rgba(255, 255, 255, 0.92);
+  
+  --text-main: #141413;
+  --text-body: #3b3a36;
+  --text-muted: #6e6d67;
+  --text-inverse: #ffffff;
+
+  --border-subtle: #e6e5df;
+  --border-card: #ebe9e3;
+  --border-hover: #cfccc2;
+
+  --accent-brand: #1b4d2e;       /* Deep Forest Green */
+  --accent-brand-light: #25663e;
+  --accent-gold: #c28825;        /* Warm Oil Amber */
+  --accent-gold-light: #fef3c7;
+  --accent-ruby: #dc2626;        /* Discount & Wishlist Red */
+  --accent-ruby-light: #fee2e2;
+  --accent-star: #f59e0b;
+  
+  --card-shadow: 0 4px 18px -2px rgba(20, 20, 19, 0.05), 0 1px 3px rgba(20, 20, 19, 0.03);
+  --card-shadow-hover: 0 20px 32px -4px rgba(20, 20, 19, 0.12), 0 8px 12px -2px rgba(20, 20, 19, 0.04);
+
+  --font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+[data-theme="dark"] {
+  --bg-canvas: #111412;
+  --bg-surface: #181d19;
+  --bg-surface-elevated: #202722;
+  --bg-subtle: #252e27;
+  --bg-overlay: rgba(17, 20, 18, 0.92);
+
+  --text-main: #f5f5f3;
+  --text-body: #d6d5cf;
+  --text-muted: #9e9d96;
+  --text-inverse: #111412;
+
+  --border-subtle: #2d382f;
+  --border-card: #28322a;
+  --border-hover: #3d4c3f;
+
+  --accent-brand: #34d399;
+  --accent-brand-light: #10b981;
+  --accent-gold: #fbbf24;
+  --accent-gold-light: #3d2f16;
+  --accent-ruby: #f87171;
+  --accent-ruby-light: #451a1a;
+  --accent-star: #fbbf24;
+
+  --card-shadow: 0 6px 24px -2px rgba(0, 0, 0, 0.45);
+  --card-shadow-hover: 0 24px 38px -4px rgba(0, 0, 0, 0.65), 0 0 20px 2px rgba(52, 211, 153, 0.12);
+}
+
+@font-face {
+  font-family: 'Qafine';
+  src: url('/fonts/QafineDEMO-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vagnola';
+  src: url('/fonts/VagnolaDemo-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RoadsideSans';
+  src: url('/fonts/VagnolaDemo-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chomage';
+  src: url('/fonts/Chomage.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-qafine {
+  font-family: 'Qafine', Georgia, serif !important;
+}
+
+.font-roadside,
+.font-vagnola {
+  font-family: 'Vagnola', -apple-system, sans-serif !important;
+}
+
+.font-chomage {
+  font-family: 'Chomage', monospace, -apple-system, sans-serif !important;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-canvas);
+  color: var(--text-body);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+p, span, a, button, input, label {
+  font-weight: 400;
+}
+
+/* Hide scrollbar for horizontal carousel track while allowing smooth scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Badge Shimmer Gradient */
+.shimmer-badge {
+  background-size: 200% 100%;
+  background-image: linear-gradient(
+    115deg,
+    #dc2626 0%,
+    #dc2626 35%,
+    rgba(255, 255, 255, 0.75) 50%,
+    #dc2626 65%,
+    #dc2626 100%
+  );
+}
+
+[data-theme="dark"] .shimmer-badge {
+  background-image: linear-gradient(
+    115deg,
+    #ef4444 0%,
+    #ef4444 35%,
+    rgba(255, 255, 255, 0.8) 50%,
+    #ef4444 65%,
+    #ef4444 100%
+  );
+}
+
+/* CSS Scroll-Snap for carousel */
+.carousel-snap-container {
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+.carousel-snap-item {
+  scroll-snap-align: start;
+}
+
+/* Floating Animations for Hero Corners */
+@keyframes float-corner-tl {
+  0%, 100% { transform: translateY(0px) rotate(-12deg); }
+  50% { transform: translateY(-10px) rotate(-8deg); }
+}
+
+@keyframes float-corner-tr {
+  0%, 100% { transform: translateY(0px) rotate(12deg); }
+  50% { transform: translateY(-12px) rotate(16deg); }
+}
+
+@keyframes float-corner-bl {
+  0%, 100% { transform: translateY(0px) rotate(-6deg); }
+  50% { transform: translateY(8px) rotate(-2deg); }
+}
+
+@keyframes float-corner-br {
+  0%, 100% { transform: translateY(0px) rotate(12deg); }
+  50% { transform: translateY(-10px) rotate(8deg); }
+}
+
+.animate-float-tl {
+  animation: float-corner-tl 5s ease-in-out infinite;
+}
+.animate-float-tr {
+  animation: float-corner-tr 5.5s ease-in-out infinite;
+}
+.animate-float-bl {
+  animation: float-corner-bl 5.2s ease-in-out infinite;
+}
+.animate-float-br {
+  animation: float-corner-br 5.8s ease-in-out infinite;
+}
+
+/* Hide scrollbars while preserving scroll functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Accessibility: Prefers-reduced-motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
