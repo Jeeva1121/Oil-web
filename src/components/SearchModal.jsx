@@ -82,7 +82,7 @@ export const SearchModal = ({ isOpen, onClose, onAddToCart }) => {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search groundnut, sunflower, sesame, ghee..."
-              className="w-full bg-transparent text-stone-900 placeholder-stone-400 text-sm sm:text-base font-normal focus:outline-none"
+              className="w-full bg-transparent text-stone-900 placeholder:text-stone-400 text-sm sm:text-base font-normal focus:outline-none"
             />
             {query && (
               <button

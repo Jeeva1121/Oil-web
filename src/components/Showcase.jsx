@@ -8,31 +8,43 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SHOWCASE_SLIDES = [
   {
-    id: 'guntur-chillies',
-    title: 'Sun-Dried Guntur Chillies',
-    step: '01 / Solar Cured',
-    desc: 'Direct from Andhra farm yards. Earthen sun-curing preserves essential capsaicin, deep fiery heat, and bright crimson color with zero chemical polish.',
-    price: 190,
-    unit: '250g Whole Spices Pack',
-    image: '/products/guntur-chillies.png',
+    id: 'pistachio',
+    title: 'California Roasted Pistachios',
+    fullName: 'California Pistachios Roasted & Salted',
+    step: '01 / Sun-Ripened Orchards',
+    desc: 'Direct from golden orchards. Naturally split California pistachios, lightly roasted and seasoned to perfection with zero artificial additives.',
+    price: 485,
+    discountedPrice: 485,
+    unit: '500g Fresh Pouch',
+    category: 'Dry Fruits',
+    image: '/products/pistachio.png',
+    mobileImage: '/products/pistachio-mobile.png',
   },
   {
     id: 'cinnamon',
     title: 'Authentic Ceylon Cinnamon',
+    fullName: 'Authentic Ceylon Cinnamon Sticks',
     step: '02 / Hand-Rolled Quills',
     desc: 'Delicately rolled single-estate Ceylon cinnamon bark. Naturally sweet, fragrant multi-layer quills with ultra-low coumarin and soothing warmth.',
     price: 255,
-    unit: '100g Glass Jar',
+    discountedPrice: 255,
+    unit: '100g Fresh Pouch',
+    category: 'Whole Spices',
     image: '/products/cinnamon.png',
+    mobileImage: '/products/cinnamon-mobile.png',
   },
   {
     id: 'raisins',
     title: 'Golden Long Raisins',
+    fullName: 'Golden Long Indian Raisins',
     step: '03 / Shade-Dried Kishmish',
     desc: 'Hand-picked from Sangli vineyards and shade-dried naturally. Juicy, sun-ripened long golden raisins with 100% natural fruit sweetness and zero sulfur.',
     price: 210,
+    discountedPrice: 210,
     unit: '500g Fresh Pack',
+    category: 'Dry Fruits',
     image: '/products/raisins.png',
+    mobileImage: '/products/raisins-mobile.png',
   },
 ];
 
@@ -147,24 +159,28 @@ export const Showcase = ({ onAddToCart }) => {
       className="relative w-full h-screen overflow-hidden bg-stone-950 text-white select-none"
       aria-label="Single-Origin Batches Showcase"
     >
-      {/* SLIDE 1: Sunflower Oil (Full Cover Background) */}
+      {/* SLIDE 1: California Roasted Pistachios */}
       <div
         ref={slide1Ref}
         className="absolute inset-0 w-full h-full overflow-hidden z-10"
       >
-        <img
-          ref={img1Ref}
-          src={SHOWCASE_SLIDES[0].image}
-          alt={SHOWCASE_SLIDES[0].title}
-          className="w-full h-full object-cover object-center filter brightness-[1.02] contrast-[1.02]"
-        />
+        <div ref={img1Ref} className="w-full h-full">
+          <picture className="block w-full h-full">
+            <source media="(max-width: 767px)" srcSet={SHOWCASE_SLIDES[0].mobileImage} />
+            <img
+              src={SHOWCASE_SLIDES[0].image}
+              alt={SHOWCASE_SLIDES[0].title}
+              className="w-full h-full object-cover object-center filter brightness-[1.02] contrast-[1.02]"
+            />
+          </picture>
+        </div>
         {/* Soft, Transparent Ambient Lighting (No Heavy Black Shade) */}
         <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-black/25 pointer-events-none" />
 
         {/* Floating Content Over Background */}
         <div
           ref={content1Ref}
-          className="absolute inset-0 max-w-7xl mx-auto px-6 sm:px-12 flex flex-col justify-between py-24 sm:py-28 pointer-events-none"
+          className="absolute inset-0 max-w-7xl mx-auto px-5 sm:px-12 flex flex-col justify-between py-20 sm:py-28 pointer-events-none"
         >
           {/* Header - Crystal Clear Radiant White */}
           <div className="pointer-events-auto">
@@ -180,7 +196,7 @@ export const Showcase = ({ onAddToCart }) => {
           </div>
 
           {/* Bottom Card Info Overlaid Directly on Background */}
-          <div className="pointer-events-auto max-w-xl bg-stone-950/75 backdrop-blur-xl border border-white/20 rounded-none p-6 sm:p-8 space-y-3.5 shadow-2xl">
+          <div className="pointer-events-auto max-w-xl bg-stone-950/75 backdrop-blur-xl border border-white/20 rounded-none p-5 sm:p-8 space-y-3 shadow-2xl">
             <span className="text-xs font-semibold tracking-widest uppercase text-amber-300 block font-chomage">
               {SHOWCASE_SLIDES[0].step}
             </span>
@@ -193,7 +209,7 @@ export const Showcase = ({ onAddToCart }) => {
             <p className="text-xs sm:text-sm text-stone-100 leading-relaxed font-normal">
               {SHOWCASE_SLIDES[0].desc}
             </p>
-            <div className="flex items-center justify-between pt-4 border-t border-white/15">
+            <div className="flex items-center justify-between pt-3.5 border-t border-white/15">
               <div>
                 <span className="text-xs text-white/80 block">{SHOWCASE_SLIDES[0].unit}</span>
                 <p ref={price1Ref} className="text-2xl font-bold text-amber-300 font-chomage">₹{SHOWCASE_SLIDES[0].price}</p>
@@ -201,7 +217,7 @@ export const Showcase = ({ onAddToCart }) => {
               <button
                 type="button"
                 onClick={() => onAddToCart(SHOWCASE_SLIDES[0])}
-                className="px-6 py-3 rounded-none bg-white text-stone-950 hover:bg-stone-100 font-semibold text-xs tracking-wider uppercase transition-all shadow-lg active:scale-95 cursor-pointer flex items-center gap-2 border border-white"
+                className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-none bg-white text-stone-950 hover:bg-stone-100 font-semibold text-xs tracking-wider uppercase transition-all shadow-lg active:scale-95 cursor-pointer flex items-center gap-2 border border-white"
               >
                 <ShoppingBag className="w-4 h-4" />
                 <span>Add To Bag</span>
@@ -211,23 +227,27 @@ export const Showcase = ({ onAddToCart }) => {
         </div>
       </div>
 
-      {/* SLIDE 2: Sesame Oil (Full Cover Background) */}
+      {/* SLIDE 2: Authentic Ceylon Cinnamon */}
       <div
         ref={slide2Ref}
         className="absolute inset-0 w-full h-full overflow-hidden z-20"
         style={{ clipPath: 'inset(100% 0% 0% 0%)' }}
       >
-        <img
-          ref={img2Ref}
-          src={SHOWCASE_SLIDES[1].image}
-          alt={SHOWCASE_SLIDES[1].title}
-          className="w-full h-full object-cover object-center filter brightness-[1.02] contrast-[1.02]"
-        />
+        <div ref={img2Ref} className="w-full h-full">
+          <picture className="block w-full h-full">
+            <source media="(max-width: 767px)" srcSet={SHOWCASE_SLIDES[1].mobileImage} />
+            <img
+              src={SHOWCASE_SLIDES[1].image}
+              alt={SHOWCASE_SLIDES[1].title}
+              className="w-full h-full object-cover object-center filter brightness-[1.02] contrast-[1.02]"
+            />
+          </picture>
+        </div>
         <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-black/25 pointer-events-none" />
 
         <div
           ref={content2Ref}
-          className="absolute inset-0 max-w-7xl mx-auto px-6 sm:px-12 flex flex-col justify-between py-24 sm:py-28 pointer-events-none"
+          className="absolute inset-0 max-w-7xl mx-auto px-5 sm:px-12 flex flex-col justify-between py-20 sm:py-28 pointer-events-none"
         >
           <div className="pointer-events-auto">
             <span className="text-xs font-semibold tracking-widest uppercase text-amber-300 mb-1.5 block drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
@@ -241,7 +261,7 @@ export const Showcase = ({ onAddToCart }) => {
             </h2>
           </div>
 
-          <div className="pointer-events-auto max-w-xl bg-stone-950/75 backdrop-blur-xl border border-white/20 rounded-none p-6 sm:p-8 space-y-3.5 shadow-2xl">
+          <div className="pointer-events-auto max-w-xl bg-stone-950/75 backdrop-blur-xl border border-white/20 rounded-none p-5 sm:p-8 space-y-3 shadow-2xl">
             <span className="text-xs font-semibold tracking-widest uppercase text-amber-300 block font-chomage">
               {SHOWCASE_SLIDES[1].step}
             </span>
@@ -254,7 +274,7 @@ export const Showcase = ({ onAddToCart }) => {
             <p className="text-xs sm:text-sm text-stone-100 leading-relaxed font-normal">
               {SHOWCASE_SLIDES[1].desc}
             </p>
-            <div className="flex items-center justify-between pt-4 border-t border-white/15">
+            <div className="flex items-center justify-between pt-3.5 border-t border-white/15">
               <div>
                 <span className="text-xs text-white/80 block">{SHOWCASE_SLIDES[1].unit}</span>
                 <p ref={price2Ref} className="text-2xl font-bold text-amber-300 font-chomage">₹{SHOWCASE_SLIDES[1].price}</p>
@@ -262,7 +282,7 @@ export const Showcase = ({ onAddToCart }) => {
               <button
                 type="button"
                 onClick={() => onAddToCart(SHOWCASE_SLIDES[1])}
-                className="px-6 py-3 rounded-none bg-white text-stone-950 hover:bg-stone-100 font-semibold text-xs tracking-wider uppercase transition-all shadow-lg active:scale-95 cursor-pointer flex items-center gap-2 border border-white"
+                className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-none bg-white text-stone-950 hover:bg-stone-100 font-semibold text-xs tracking-wider uppercase transition-all shadow-lg active:scale-95 cursor-pointer flex items-center gap-2 border border-white"
               >
                 <ShoppingBag className="w-4 h-4" />
                 <span>Add To Bag</span>
@@ -272,23 +292,27 @@ export const Showcase = ({ onAddToCart }) => {
         </div>
       </div>
 
-      {/* SLIDE 3: Desi Buffalo Ghee (Full Cover Background) */}
+      {/* SLIDE 3: Golden Long Raisins */}
       <div
         ref={slide3Ref}
         className="absolute inset-0 w-full h-full overflow-hidden z-30"
         style={{ clipPath: 'inset(100% 0% 0% 0%)' }}
       >
-        <img
-          ref={img3Ref}
-          src={SHOWCASE_SLIDES[2].image}
-          alt={SHOWCASE_SLIDES[2].title}
-          className="w-full h-full object-cover object-center filter brightness-[1.02] contrast-[1.02]"
-        />
+        <div ref={img3Ref} className="w-full h-full">
+          <picture className="block w-full h-full">
+            <source media="(max-width: 767px)" srcSet={SHOWCASE_SLIDES[2].mobileImage} />
+            <img
+              src={SHOWCASE_SLIDES[2].image}
+              alt={SHOWCASE_SLIDES[2].title}
+              className="w-full h-full object-cover object-center raisins-mobile-center filter brightness-[1.02] contrast-[1.02]"
+            />
+          </picture>
+        </div>
         <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-black/25 pointer-events-none" />
 
         <div
           ref={content3Ref}
-          className="absolute inset-0 max-w-7xl mx-auto px-6 sm:px-12 flex flex-col justify-between py-24 sm:py-28 pointer-events-none"
+          className="absolute inset-0 max-w-7xl mx-auto px-5 sm:px-12 flex flex-col justify-between py-20 sm:py-28 pointer-events-none"
         >
           <div className="pointer-events-auto">
             <span className="text-xs font-semibold tracking-widest uppercase text-amber-300 mb-1.5 block drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
@@ -302,7 +326,7 @@ export const Showcase = ({ onAddToCart }) => {
             </h2>
           </div>
 
-          <div className="pointer-events-auto max-w-xl bg-stone-950/75 backdrop-blur-xl border border-white/20 rounded-none p-6 sm:p-8 space-y-3.5 shadow-2xl">
+          <div className="pointer-events-auto max-w-xl bg-stone-950/75 backdrop-blur-xl border border-white/20 rounded-none p-5 sm:p-8 space-y-3 shadow-2xl">
             <span className="text-xs font-semibold tracking-widest uppercase text-amber-300 block font-chomage">
               {SHOWCASE_SLIDES[2].step}
             </span>
@@ -315,7 +339,7 @@ export const Showcase = ({ onAddToCart }) => {
             <p className="text-xs sm:text-sm text-stone-100 leading-relaxed font-normal">
               {SHOWCASE_SLIDES[2].desc}
             </p>
-            <div className="flex items-center justify-between pt-4 border-t border-white/15">
+            <div className="flex items-center justify-between pt-3.5 border-t border-white/15">
               <div>
                 <span className="text-xs text-white/80 block">{SHOWCASE_SLIDES[2].unit}</span>
                 <p ref={price3Ref} className="text-2xl font-bold text-amber-300 font-chomage">₹{SHOWCASE_SLIDES[2].price}</p>
@@ -323,7 +347,7 @@ export const Showcase = ({ onAddToCart }) => {
               <button
                 type="button"
                 onClick={() => onAddToCart(SHOWCASE_SLIDES[2])}
-                className="px-6 py-3 rounded-none bg-white text-stone-950 hover:bg-stone-100 font-semibold text-xs tracking-wider uppercase transition-all shadow-lg active:scale-95 cursor-pointer flex items-center gap-2 border border-white"
+                className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-none bg-white text-stone-950 hover:bg-stone-100 font-semibold text-xs tracking-wider uppercase transition-all shadow-lg active:scale-95 cursor-pointer flex items-center gap-2 border border-white"
               >
                 <ShoppingBag className="w-4 h-4" />
                 <span>Add To Bag</span>

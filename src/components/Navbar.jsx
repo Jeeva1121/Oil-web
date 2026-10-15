@@ -233,7 +233,7 @@ export const Navbar = ({
                           onUpdateProfile && onUpdateProfile({ ...userProfile, name: e.target.value })
                         }
                         placeholder="Monika"
-                        className="w-full px-3 py-2 rounded-none bg-stone-50 border border-stone-300 text-stone-950 text-xs focus:bg-white focus:border-stone-950 focus:outline-none transition-colors"
+                        className="w-full px-3 py-2 rounded-none bg-stone-50 border border-stone-300 text-stone-950 text-xs outline-none focus:ring-1 focus:ring-stone-950 transition-colors"
                       />
                     </div>
 
@@ -248,7 +248,7 @@ export const Navbar = ({
                           onUpdateProfile && onUpdateProfile({ ...userProfile, phone: e.target.value })
                         }
                         placeholder="+91 94421 89234"
-                        className="w-full px-3 py-2 rounded-none bg-stone-50 border border-stone-300 text-stone-950 text-xs font-chomage focus:bg-white focus:border-stone-950 focus:outline-none transition-colors"
+                        className="w-full px-3 py-2 rounded-none bg-stone-50 border border-stone-300 text-stone-950 text-xs font-chomage outline-none focus:ring-1 focus:ring-stone-950 transition-colors"
                       />
                     </div>
 
@@ -263,7 +263,7 @@ export const Navbar = ({
                           onUpdateProfile && onUpdateProfile({ ...userProfile, address: e.target.value })
                         }
                         placeholder="No. 42, Maruthamalai Main Road, Vadavalli"
-                        className="w-full px-3 py-2 rounded-none bg-stone-50 border border-stone-300 text-stone-950 text-xs focus:bg-white focus:border-stone-950 focus:outline-none transition-colors"
+                        className="w-full px-3 py-2 rounded-none bg-stone-50 border border-stone-300 text-stone-950 text-xs outline-none focus:ring-1 focus:ring-stone-950 transition-colors"
                       />
                     </div>
 
@@ -279,7 +279,7 @@ export const Navbar = ({
                             onUpdateProfile && onUpdateProfile({ ...userProfile, city: e.target.value })
                           }
                           placeholder="Coimbatore"
-                          className="w-full px-3 py-2 rounded-none bg-stone-50 border border-stone-300 text-stone-950 text-xs focus:bg-white focus:border-stone-950 focus:outline-none transition-colors"
+                          className="w-full px-3 py-2 rounded-none bg-stone-50 border border-stone-300 text-stone-950 text-xs outline-none focus:ring-1 focus:ring-stone-950 transition-colors"
                         />
                       </div>
                       <div>
@@ -293,7 +293,7 @@ export const Navbar = ({
                             onUpdateProfile && onUpdateProfile({ ...userProfile, pincode: e.target.value })
                           }
                           placeholder="641041"
-                          className="w-full px-3 py-2 rounded-none bg-stone-50 border border-stone-300 text-stone-950 text-xs font-chomage focus:bg-white focus:border-stone-950 focus:outline-none transition-colors"
+                          className="w-full px-3 py-2 rounded-none bg-stone-50 border border-stone-300 text-stone-950 text-xs font-chomage outline-none focus:ring-1 focus:ring-stone-950 transition-colors"
                         />
                       </div>
                     </div>

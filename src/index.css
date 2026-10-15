@@ -231,3 +231,11 @@ p, span, a, button, input, label {
   }
 }
 
+/* Specific mobile centering for Raisins pouch in Kinetic Showcase */
+@media (max-width: 767px) {
+  .raisins-mobile-center {
+    object-position: 85% center !important;
+  }
+}
+
+
