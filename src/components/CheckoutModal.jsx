@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Check, ShieldCheck, Truck, CreditCard, ArrowRight, Sparkles, MapPin, Phone, User } from 'lucide-react';
 
 export const CheckoutModal = ({
@@ -22,6 +22,27 @@ export const CheckoutModal = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderId, setOrderId] = useState('');
 
+  // Lock background scrolling and handle escape key when modal is open
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setStep('checkout');
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const handleSubmit = (e) => {
@@ -44,7 +65,7 @@ export const CheckoutModal = ({
 
   return (
     <div
-      className="fixed inset-0 z-60 overflow-y-auto"
+      className="fixed inset-0 z-60 flex items-center justify-center p-2.5 sm:p-6 overflow-hidden"
       role="dialog"
       aria-modal="true"
       aria-label="Order Checkout"
@@ -55,35 +76,35 @@ export const CheckoutModal = ({
         onClick={handleClose}
       />
 
-      <div className="min-h-full flex items-center justify-center p-4 sm:p-6">
-        <div
-          className="relative w-full max-w-2xl bg-white rounded-none border border-stone-300 shadow-2xl overflow-hidden z-10 transition-all text-stone-900"
-          onClick={(e) => e.stopPropagation()}
-        >
-          {step === 'checkout' ? (
-            <div>
-              {/* Header */}
-              <div className="p-5 sm:p-6 border-b border-stone-200 bg-stone-50 flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] uppercase tracking-widest font-bold text-amber-800 block">
-                    Direct From Organic Ghani
-                  </span>
-                  <h3 className="text-xl sm:text-2xl font-normal text-stone-950 m-0 font-qafine">
-                    Complete Your Order
-                  </h3>
-                </div>
-                <button
-                  type="button"
-                  onClick={handleClose}
-                  aria-label="Close Checkout"
-                  className="w-9 h-9 rounded-none bg-white border border-stone-200 hover:border-stone-900 text-stone-600 hover:text-stone-950 flex items-center justify-center transition-colors cursor-pointer"
-                >
-                  <X className="w-4 h-4 stroke-2" />
-                </button>
+      {/* Centered Modal Card with Strict Viewport Height Bounds */}
+      <div
+        className="relative w-full max-w-2xl bg-white rounded-none border border-stone-300 shadow-2xl z-10 transition-all text-stone-900 flex flex-col max-h-[92vh] sm:max-h-[86vh] overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {step === 'checkout' ? (
+          <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0 overflow-hidden">
+            {/* Header (Fixed) */}
+            <div className="p-4 sm:p-6 border-b border-stone-200 bg-stone-50 flex items-center justify-between flex-none">
+              <div>
+                <span className="text-[10px] uppercase tracking-widest font-bold text-amber-800 block">
+                  Direct From Organic Ghani
+                </span>
+                <h3 className="text-xl sm:text-2xl font-normal text-stone-950 m-0 font-qafine">
+                  Complete Your Order
+                </h3>
               </div>
+              <button
+                type="button"
+                onClick={handleClose}
+                aria-label="Close Checkout"
+                className="w-9 h-9 rounded-none bg-white border border-stone-200 hover:border-stone-900 text-stone-600 hover:text-stone-950 flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4 stroke-2" />
+              </button>
+            </div>
 
-              <form onSubmit={handleSubmit}>
-                <div className="p-5 sm:p-6 space-y-6 max-h-[70vh] overflow-y-auto">
+            {/* Scrollable Form Body: NO SCROLLBAR, SMOOTH TOUCH SCROLL */}
+            <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar overscroll-contain p-4 sm:p-6 space-y-5">
                   {/* Delivery Address Section (Editable in Real Time) */}
                   <div>
                     <h4 className="text-xs font-bold uppercase tracking-wider text-stone-950 mb-3 flex items-center gap-2">
@@ -274,74 +295,74 @@ export const CheckoutModal = ({
                   </div>
                 </div>
 
-                {/* Footer Action */}
-                <div className="p-4 sm:p-6 bg-stone-50 border-t border-stone-200 flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-2 text-xs text-stone-500">
-                    <ShieldCheck className="w-4 h-4 text-emerald-700 flex-none" />
-                    <span className="text-[11px]">100% Secure Fresh Harvest Checkout</span>
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="px-8 py-3.5 rounded-none bg-stone-950 hover:bg-stone-800 text-white font-medium text-xs tracking-wider uppercase transition-all shadow-xs flex items-center gap-2 cursor-pointer active:scale-95 disabled:opacity-50"
-                  >
-                    <span>{isSubmitting ? 'Confirming...' : 'Place Order'}</span>
-                    <ArrowRight className="w-4 h-4 stroke-2" />
-                  </button>
-                </div>
-              </form>
-            </div>
-          ) : (
-            /* Order Success View */
-            <div className="p-8 sm:p-12 text-center space-y-6">
-              <div className="w-16 h-16 rounded-none bg-stone-950 text-white mx-auto flex items-center justify-center shadow-lg animate-in zoom-in-75 duration-300">
-                <Check className="w-8 h-8 stroke-[2.5] text-amber-300" />
-              </div>
-
-              <div>
-                <span className="text-xs font-bold uppercase tracking-widest text-emerald-700 block mb-1">
-                  Order Successfully Placed
+            {/* Footer Action (Neat, Balanced Single-Line on Mobile) */}
+            <div className="p-3.5 sm:p-5 bg-stone-50 border-t border-stone-200 flex items-center justify-between gap-3 flex-none">
+              <div className="flex items-center gap-1.5 text-xs text-stone-600 min-w-0">
+                <ShieldCheck className="w-4 h-4 text-emerald-700 flex-none" />
+                <span className="text-[11px] font-medium tracking-tight whitespace-nowrap">
+                  100% Secure Checkout
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-normal text-stone-950 font-qafine m-0">
-                  Thank You, {userProfile?.name || 'Monika'}!
-                </h3>
-                <p className="text-xs text-stone-500 mt-2 max-w-md mx-auto leading-relaxed">
-                  Your order <span className="font-bold text-stone-900 font-chomage">#{orderId}</span> has been confirmed. Fresh cold-pressed harvest will be bottled and dispatched directly to your doorstep.
-                </p>
               </div>
 
-              <div className="p-4 bg-stone-50 border border-stone-200 max-w-md mx-auto text-left text-xs space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-stone-500">Delivery Address:</span>
-                  <span className="font-semibold text-stone-900 text-right truncate max-w-[200px]">
-                    {userProfile?.address || ''}, {userProfile?.city || ''}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-stone-500">Payment:</span>
-                  <span className="font-semibold uppercase text-stone-900">
-                    {paymentMethod === 'cod' ? 'Cash On Delivery' : paymentMethod.toUpperCase()}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-stone-500">Estimated Delivery:</span>
-                  <span className="font-semibold text-emerald-700">Tomorrow by 4:00 PM</span>
-                </div>
-              </div>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="px-5 sm:px-8 py-3 sm:py-3.5 rounded-none bg-stone-950 hover:bg-stone-800 text-white font-medium text-xs tracking-wider uppercase transition-all shadow-xs flex items-center gap-2 cursor-pointer active:scale-95 disabled:opacity-50 whitespace-nowrap shrink-0"
+              >
+                <span>{isSubmitting ? 'Confirming...' : 'Place Order'}</span>
+                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-2" />
+              </button>
+            </div>
+          </form>
+        ) : (
+          /* Order Success View */
+          <div className="p-6 sm:p-10 text-center space-y-5 overflow-y-auto no-scrollbar max-h-[85vh]">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-none bg-stone-950 text-white mx-auto flex items-center justify-center shadow-lg animate-in zoom-in-75 duration-300">
+              <Check className="w-7 h-7 sm:w-8 sm:h-8 stroke-[2.5] text-amber-300" />
+            </div>
 
-              <div className="pt-2">
-                <button
-                  type="button"
-                  onClick={handleClose}
-                  className="px-8 py-3.5 rounded-none bg-stone-950 hover:bg-stone-800 text-white font-medium text-xs tracking-wider uppercase transition-all shadow-xs cursor-pointer active:scale-95"
-                >
-                  Continue Shopping
-                </button>
+            <div>
+              <span className="text-xs font-bold uppercase tracking-widest text-emerald-700 block mb-1">
+                Order Successfully Placed
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-normal text-stone-950 font-qafine m-0">
+                Thank You, {userProfile?.name || 'Monika'}!
+              </h3>
+              <p className="text-xs text-stone-500 mt-2 max-w-md mx-auto leading-relaxed">
+                Your order <span className="font-bold text-stone-900 font-chomage">#{orderId}</span> has been confirmed. Fresh cold-pressed harvest will be bottled and dispatched directly to your doorstep.
+              </p>
+            </div>
+
+            <div className="p-4 bg-stone-50 border border-stone-200 max-w-md mx-auto text-left text-xs space-y-2">
+              <div className="flex justify-between">
+                <span className="text-stone-500">Delivery Address:</span>
+                <span className="font-semibold text-stone-900 text-right truncate max-w-[200px]">
+                  {userProfile?.address || ''}, {userProfile?.city || ''}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-stone-500">Payment:</span>
+                <span className="font-semibold uppercase text-stone-900">
+                  {paymentMethod === 'cod' ? 'Cash On Delivery' : paymentMethod.toUpperCase()}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-stone-500">Estimated Delivery:</span>
+                <span className="font-semibold text-emerald-700">Tomorrow by 4:00 PM</span>
               </div>
             </div>
-          )}
-        </div>
+
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={handleClose}
+                className="px-8 py-3.5 rounded-none bg-stone-950 hover:bg-stone-800 text-white font-medium text-xs tracking-wider uppercase transition-all shadow-xs cursor-pointer active:scale-95"
+              >
+                Continue Shopping
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

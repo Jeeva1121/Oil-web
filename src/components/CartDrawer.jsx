@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight } from 'lucide-react';
 
 export const CartDrawer = ({
@@ -9,6 +9,24 @@ export const CartDrawer = ({
   onRemoveItem,
   onProceedToCheckout,
 }) => {
+  // Lock background scroll when drawer is open
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const subtotal = items.reduce(
@@ -42,7 +60,7 @@ export const CartDrawer = ({
                 <ShoppingBag className="w-4 h-4 stroke-2" />
               </div>
               <div>
-                <h2 className="text-base sm:text-lg font-normal text-stone-950 m-0 font-qafine">
+                <h2 className="text-base sm:lg font-normal text-stone-950 m-0 font-qafine">
                   Your Bag
                 </h2>
                 <p className="text-xs text-stone-500 m-0">
@@ -62,7 +80,7 @@ export const CartDrawer = ({
           </div>
 
           {/* Items List */}
-          <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-3.5">
+          <div className="flex-1 overflow-y-auto no-scrollbar overscroll-contain p-4 sm:p-6 space-y-3.5">
             {items.length === 0 ? (
               <div className="h-full flex flex-col items-center justify-center text-center text-stone-400 py-16">
                 <ShoppingBag className="w-12 h-12 stroke-1 mb-3 text-stone-300" />

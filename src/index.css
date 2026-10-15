@@ -217,6 +217,11 @@ p, span, a, button, input, label {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.search-modal-input::placeholder {
+  color: #a8a29e;
 }
 
 /* Accessibility: Prefers-reduced-motion overrides */

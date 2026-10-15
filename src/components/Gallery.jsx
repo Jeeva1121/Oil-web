@@ -90,32 +90,23 @@ export const Gallery = () => {
 
       cards.forEach((card) => {
         const img = card.querySelector('img');
-        const overlay = card.querySelector('.gallery-overlay');
 
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: card,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1,
+            start: 'top 90%',
+            end: 'bottom 10%',
+            scrub: 0.5,
             invalidateOnRefresh: true,
           },
         });
 
+        // Gentle illumination without clipping
         tl.fromTo(
           img,
-          { scale: 1.15, yPercent: -6 },
-          { scale: 1.0, yPercent: 6, ease: 'none' }
+          { filter: 'brightness(0.96)' },
+          { filter: 'brightness(1.02)', ease: 'none' }
         );
-
-        if (overlay) {
-          tl.fromTo(
-            overlay,
-            { opacity: 0.75, y: 10 },
-            { opacity: 1, y: 0, ease: 'none' },
-            0
-          );
-        }
       });
     },
     { scope: containerRef }
@@ -125,11 +116,11 @@ export const Gallery = () => {
     <section
       ref={containerRef}
       id="gallery"
-      className="relative w-full py-24 md:py-32 bg-stone-100/60 border-b border-stone-200/80 overflow-hidden"
+      className="relative w-full py-20 sm:py-28 md:py-32 bg-stone-100/60 border-b border-stone-200/80 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Block with GSAP Animations */}
-        <div ref={titleBlockRef} className="text-center max-w-2xl mx-auto mb-16">
+        <div ref={titleBlockRef} className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
           <span
             ref={tagRef}
             className="text-xs font-semibold text-amber-700 tracking-widest uppercase mb-2 block"
@@ -150,32 +141,34 @@ export const Gallery = () => {
           </p>
         </div>
 
-        {/* Curated 4-Card Editorial Grid */}
+        {/* Curated 4-Card Editorial Grid with Full Visible 16:9 Images and Pristine Captions Below */}
         <div
           ref={trackRef}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8"
         >
           {GALLERY_ITEMS.map((item, idx) => (
             <div
               key={idx}
-              className="gallery-card group relative rounded-none overflow-hidden border border-stone-200 hover:border-stone-900 bg-white shadow-xs hover:shadow-xl transition-all duration-300 aspect-16/10"
+              className="gallery-card group relative rounded-none overflow-hidden border border-stone-200 hover:border-stone-900 bg-white shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col"
             >
-              <div className="w-full h-full overflow-hidden bg-stone-100">
+              <div className="w-full aspect-video overflow-hidden bg-stone-100 relative">
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="w-full h-full object-cover transform-gpu will-change-transform group-hover:scale-105 transition-transform duration-700 ease-out"
+                  className="w-full h-full object-cover object-center transform-gpu will-change-transform group-hover:scale-[1.03] transition-transform duration-700 ease-out"
                 />
               </div>
 
-              {/* Editorial Gradient Overlay */}
-              <div className="gallery-overlay absolute inset-0 bg-linear-to-t from-stone-950/85 via-stone-950/20 to-transparent p-6 sm:p-8 flex flex-col justify-end text-white">
-                <span className="text-xs font-semibold text-amber-300 uppercase tracking-wider mb-1">
-                  {item.spec}
-                </span>
-                <h3 className="text-xl sm:text-2xl font-bold text-white m-0">
-                  {item.title}
-                </h3>
+              {/* Editorial Caption Bar (Crystal Clear, 100% of Image Visible) */}
+              <div className="p-4 sm:p-5 bg-white border-t border-stone-200 flex items-center justify-between">
+                <div>
+                  <span className="text-[11px] font-bold text-amber-800 uppercase tracking-wider block mb-1">
+                    {item.spec}
+                  </span>
+                  <h3 className="text-base sm:text-lg font-normal text-stone-950 m-0 font-qafine">
+                    {item.title}
+                  </h3>
+                </div>
               </div>
             </div>
           ))}
